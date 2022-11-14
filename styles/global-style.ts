@@ -1,13 +1,31 @@
-// 전역 스타일을 설정
 import { createGlobalStyle } from 'styled-components';
-import { normalize } from 'styled-normalize';
+import { reset } from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
-  ${normalize}
-  html {
-    box-sizing: border-box;
-    font-size: 20px;
-    min-width: 320px;
-  }
-  a { cursor: pointer; text-decoration: none; }
+    ${reset}
+    :focus {
+        outline: none;
+        border: none;
+    }
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    html{
+        -webkit-text-size-adjust: none;
+        font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,sans-serif;       
+        font-display: fallback;
+        font-size: 10px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    button {
+        background: none;
+        padding: 0;
+        border: none;
+        cursor: pointer;
+        &:disabled {
+            cursor: default;
+            fill: #f2f3f4;
+        }
+    }
 `;
