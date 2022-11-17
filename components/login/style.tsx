@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 
-export const IntroBox = styled.div`
+export const LoginBox = styled.div`
   background-color: #fff;
 `;
