@@ -23,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Header />
-        <Component {...pageProps} />
+        <main>
+          <Component {...pageProps} />
+        </main>
         <Footer />
       </ThemeProvider>
     </>

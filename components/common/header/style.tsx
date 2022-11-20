@@ -1,38 +1,30 @@
 import styled from 'styled-components';
 
 export const HeaderBox = styled.header`
-  display: block;
+  display: flex;
   position: fixed;
+  align-items: center;
+  justify-content: space-between;
   top: 0;
   left: 0;
+  z-index: 10;
   width: 100%;
+  height: 6rem;
   margin: 0;
-  padding: 0;
-  background-color: #ffa5ac;
-  z-index: 100;
+  padding: 1rem 2rem;
+  background-color: #fae100;
+  box-sizing: border-box;
 
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  a {
+    padding: 1rem 0;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #000;
+  }
 
-    strong {
-      display: block;
-      width: 100%;
-      margin: 0;
-      padding: 2rem 1.5rem;
-      font-weight: 400;
-      font-size: 1.4rem;
-      color: #fff;
-      letter-spacing: 0.1rem;
-      background-color: #ffa5ac;
-      text-align: left;
-      text-transform: uppercase;
-      transition: 0.2s;
-      transform-origin: 50% 50%;
-    }
+  & + main {
+    min-height: calc(100vh - 11rem);
+    margin-top: 6rem;
+    padding: 0 2rem;
   }
 `;

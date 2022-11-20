@@ -16,7 +16,6 @@ export default function Header() {
       <Link
         href={{
           pathname: '/join',
-          // query: { name: 'ahyoung' },
         }}
       >
         JOIN

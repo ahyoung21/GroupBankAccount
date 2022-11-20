@@ -6,6 +6,7 @@ export const FooterBox = styled.footer`
   background-color: #fff;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  box-sizing: border-box;
 
   p {
     display: flex;

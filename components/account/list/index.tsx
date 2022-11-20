@@ -6,7 +6,7 @@ import { getData, setData } from '../../../firebase/firestore';
 export default function AccountList() {
   const getAccount = async () => {
     await getData('account').then((data: any) => {
-      console.log(data.docs.map((item: any) => item.data()));
+      // console.log(data.docs.map((item: any) => item.data()));
     });
   };
 

@@ -5,7 +5,9 @@ import { loginAuth } from '../../firebase/firestore';
 export default function Login() {
   return (
     <>
-      <LoginBox>login</LoginBox>
+      <LoginBox>
+        <h2>로그인</h2>
+      </LoginBox>
     </>
   );
 }
