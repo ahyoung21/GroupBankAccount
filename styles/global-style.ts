@@ -25,6 +25,7 @@ export const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         background: none;
         border: none;
+        color:#000;
 
         &:disabled {
             cursor: default;

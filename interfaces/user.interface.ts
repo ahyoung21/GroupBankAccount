@@ -1,8 +1,8 @@
 export interface UserInputInterface {
-  name: string;
+  name?: string;
   email: string;
   password: string;
-  matchPassword: string;
+  matchPassword?: string;
 }
 
 export interface UserErrorMsgInterface {
