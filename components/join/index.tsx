@@ -17,7 +17,7 @@ export default function Join() {
   const pwdRef = useRef<HTMLInputElement>(null);
   const matchPwdRef = useRef<HTMLInputElement>(null);
 
-  const [inputValue, setInputValue] = useState<UserInputInterface<string>>({
+  const [inputValue, setInputValue] = useState<UserInputInterface<string | null>>({
     name: '',
     email: '',
     password: '',
@@ -80,6 +80,7 @@ export default function Join() {
           password: '',
           matchPassword: '',
         });
+
         setUserState([{ email: user.email }]);
         Router.push('/login');
       })
