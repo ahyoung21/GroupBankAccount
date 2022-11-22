@@ -9,14 +9,14 @@ import { UserState } from '../../state';
 
 export default function Login() {
   const firestore_path = 'users';
-  const userState = useRecoilValue(UserState); // 읽기 전용!
+  const userEmail = useRecoilValue(UserState); // 읽기 전용!
 
   const emailRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [status, setStatus] = useState<boolean>(false);
 
-  const [inputValue, setInputValue] = useState<UserInputInterface<string>>({
+  const [inputValue, setInputValue] = useState<UserInputInterface<string | undefined>>({
     email: '',
     password: '',
   });
@@ -64,6 +64,15 @@ export default function Login() {
     }
   }, [inputValue.password, inputValue.matchPassword]);
 
+  useEffect(() => {
+    if (userEmail) {
+      setInputValue({
+        ...inputValue,
+        email: userEmail[0].email,
+      });
+    }
+  }, [userEmail]);
+
   return (
     <>
       <JoinBox>
@@ -75,7 +84,7 @@ export default function Login() {
               placeholder="email"
               name="email"
               ref={emailRef}
-              value={userState[0].email ? userState[0].email : inputValue.email}
+              value={inputValue.email}
               onChange={handleInputValue}
             />
             <input
