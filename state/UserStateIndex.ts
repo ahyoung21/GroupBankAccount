@@ -5,7 +5,7 @@ const { persistAtom } = recoilPersist();
 
 export interface IUserTypes {
   name?: string;
-  email: string | undefined;
+  email: string | undefined | null;
   password?: string;
 }
 
