@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
 import Head from 'next/head';
 
 import Header from '../components/common/header';
@@ -11,7 +12,7 @@ import { theme } from '../styles/theme';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <RecoilRoot>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:title" content="AccountBook" />
@@ -28,6 +29,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </main>
         <Footer />
       </ThemeProvider>
-    </>
+    </RecoilRoot>
   );
 }

@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef, ChangeEvent, MouseEvent } from 'react';
+import { atom, RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import Router from 'next/router';
 import { UserInputInterface, UserErrorMsgInterface } from '../../interfaces/user.interface';
 import { setData, joinAuth } from '../../firebase/firestore';
+
+import { UserState } from '../../state';
 
 import { JoinBox } from './style';
 
 export default function Join() {
   const firestore_path = 'users';
+  const [userState, setUserState] = useRecoilState(UserState);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
   const matchPwdRef = useRef<HTMLInputElement>(null);
 
-  const [inputValue, setInputValue] = useState<UserInputInterface>({
+  const [inputValue, setInputValue] = useState<UserInputInterface<string>>({
     name: '',
     email: '',
     password: '',
@@ -76,6 +80,7 @@ export default function Join() {
           password: '',
           matchPassword: '',
         });
+        setUserState([{ email: user.email }]);
         Router.push('/login');
       })
 

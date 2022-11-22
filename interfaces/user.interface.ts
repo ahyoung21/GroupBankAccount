@@ -1,6 +1,6 @@
-export interface UserInputInterface {
+export interface UserInputInterface<Type> {
   name?: string;
-  email: string;
+  email: Type;
   password: string;
   matchPassword?: string;
 }

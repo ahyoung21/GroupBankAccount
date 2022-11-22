@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useRef, ChangeEvent, MouseEvent } from 'react';
 import Router from 'next/router';
+import { atom, RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
+
 import { UserInputInterface } from '../../interfaces/user.interface';
 import { setData, loginAuth } from '../../firebase/firestore';
 import { JoinBox } from '../join/style';
+import { UserState } from '../../state';
 
 export default function Login() {
   const firestore_path = 'users';
+  const userState = useRecoilValue(UserState); // 읽기 전용!
 
   const emailRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [status, setStatus] = useState<boolean>(false);
 
-  const [inputValue, setInputValue] = useState<UserInputInterface>({
+  const [inputValue, setInputValue] = useState<UserInputInterface<string>>({
     email: '',
     password: '',
   });
@@ -71,7 +75,7 @@ export default function Login() {
               placeholder="email"
               name="email"
               ref={emailRef}
-              value={inputValue.email}
+              value={userState[0].email ? userState[0].email : inputValue.email}
               onChange={handleInputValue}
             />
             <input
