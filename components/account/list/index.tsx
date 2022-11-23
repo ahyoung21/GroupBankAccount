@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { AccountListBox } from './style';
 
 import { getData, setData } from '../../../firebase/firestore';
@@ -19,5 +22,10 @@ export default function AccountList() {
     getAccount();
   }, []);
 
-  return <AccountListBox>본문</AccountListBox>;
+  return (
+    <AccountListBox>
+      {' '}
+      <Skeleton count={5} />{' '}
+    </AccountListBox>
+  );
 }
