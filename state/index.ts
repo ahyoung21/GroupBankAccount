@@ -1,6 +1,7 @@
 import { atom, RecoilRoot, useRecoilState } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import UserState from './UserStateIndex';
+import InitialPropsState from './InitialProps';
 
 //1. 아무것도 설정 안 하고 쓰는 경우
 //localStorage에 저장되며, key 이름은 'recoil-persist'로 저장됨
@@ -15,4 +16,4 @@ import UserState from './UserStateIndex';
 //   storage: sessionStorage,
 // });
 
-export { UserState };
+export { UserState, InitialPropsState };

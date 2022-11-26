@@ -10,3 +10,10 @@ export interface UserErrorMsgInterface {
   pwdMessage: string;
   common: string;
 }
+
+export interface AccountInterface {
+  dateTime: string;
+  price: number;
+  seq: number;
+  type: string;
+}
