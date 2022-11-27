@@ -3,7 +3,7 @@ import { getData, setData } from '../firebase/firestore';
 
 export default selector({
   key: 'InitialPropsState',
-  get: async () => {
+  get: async ({ get }) => {
     try {
       const response = await getData('account').then((data: any) => {
         return data.docs.map((item: any) => item.data());
