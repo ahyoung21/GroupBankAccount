@@ -63,7 +63,7 @@ export default function Join() {
     }
   };
 
-  const onSubmit = async (e: MouseEvent<HTMLElement>): Promise<void> => {
+  const onSubmit = async (e: MouseEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
     setErrorMsg({ regMessage: '', pwdMessage: '', common: '' });
     joinAuth(inputValue.email, inputValue.password)

@@ -1,12 +1,19 @@
 import ReactDOM from 'react-dom';
 import { PropsWithChildren } from 'react';
-import { ModalBox, Dimmed } from './style';
+import { ModalBox, Dimmed, ModalContent } from './style';
+
 interface ModalProps {
   onClose: () => void;
 }
-const ModalBgDimed = (props: ModalProps) => {
+
+const ModalDimed = (props: ModalProps) => {
   return <Dimmed onClick={props.onClose} />;
 };
+
+const ModalContents = ({ children }: PropsWithChildren) => {
+  return <ModalContent>{children}</ModalContent>;
+};
+
 const Modal = (props: PropsWithChildren<ModalProps>) => {
   const modalElement = document.getElementById('modal');
   if (modalElement === null) {
@@ -17,8 +24,8 @@ const Modal = (props: PropsWithChildren<ModalProps>) => {
         {ReactDOM.createPortal(
           <>
             <ModalBox>
-              <div>{props.children}</div>
-              <ModalBgDimed onClose={props.onClose}></ModalBgDimed>
+              <ModalContents>{props.children}</ModalContents>
+              <ModalDimed onClose={props.onClose}></ModalDimed>
             </ModalBox>
           </>,
           modalElement

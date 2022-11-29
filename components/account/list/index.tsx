@@ -7,14 +7,14 @@ import { UserState, InitialPropsState } from '../../../state';
 
 import { AccountListBox } from './style';
 
-import { getData, setData } from '../../../firebase/firestore';
 import Button from '../../button/index';
 
-import Menu from '../../modal/menu';
+import ModalRegister from '../../modalRegister';
 
 export default function AccountList() {
   const [modalFlag, setModalFlag] = useState(false);
-  const onClickOpenModal = (e: MouseEvent<HTMLButtonElement>) => {
+  const intl = new Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' });
+  const onClickOpenModal = () => {
     setModalFlag(true);
   };
   const onClickCloseModal = () => {
@@ -22,12 +22,6 @@ export default function AccountList() {
   };
   const userEmail = useRecoilValue(UserState);
   const accountInfo = useRecoilValueLoadable(InitialPropsState);
-  console.log(accountInfo.contents);
-
-  const setAccount = () => {
-    const data = { dateTime: '2022-11-15', price: 90000, seq: 1, type: 'withdraw' };
-    setData('account', data);
-  };
 
   switch (accountInfo.state) {
     case 'hasValue':
@@ -37,15 +31,24 @@ export default function AccountList() {
             {accountInfo.contents.map((account: AccountInterface, idx: number) => {
               return (
                 <li key={idx}>
-                  <span>{account.dateTime}</span>
-                  <span>{account.price}</span>
-                  <span>{account.type}</span>
+                  <dl>
+                    <dt>
+                      <span>{account.dateTime}</span>
+                      <strong>{account.type === 'withdraw' ? '출금' : '입금'}</strong>
+                    </dt>
+                    <dd>
+                      <span>
+                        {account.type === 'withdraw' ? '-' : '+'}
+                        {intl.format(account.price)}
+                      </span>
+                    </dd>
+                  </dl>
                 </li>
               );
             })}
           </ul>
           {userEmail && <Button onClickOpenModal={onClickOpenModal} />}
-          {modalFlag && <Menu onClose={onClickCloseModal} />}
+          {modalFlag && <ModalRegister onClose={onClickCloseModal} />}
         </AccountListBox>
       );
     case 'loading':
