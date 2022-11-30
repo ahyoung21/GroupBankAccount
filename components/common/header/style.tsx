@@ -26,5 +26,9 @@ export const HeaderBox = styled.header`
     min-height: calc(100vh - 11rem);
     margin-top: 6rem;
     padding: 0 2rem;
+
+    .react-loading-skeleton {
+      margin-top: 1rem;
+    }
   }
 `;

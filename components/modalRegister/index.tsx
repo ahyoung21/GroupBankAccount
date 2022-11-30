@@ -61,10 +61,12 @@ const ModalRegister = (props: ModalProps) => {
     <Modal onClose={props.onClose}>
       <ModalRegisterBox>
         <form>
-          <select name="selectBox" id="selectBox" onChange={handleSelectValue}>
-            <option value="deposit">입금</option>
-            <option value="withdraw">출금</option>
-          </select>
+          <div>
+            <select name="selectBox" id="selectBox" onChange={handleSelectValue}>
+              <option value="deposit">입금</option>
+              <option value="withdraw">출금</option>
+            </select>
+          </div>
           <input
             type="text"
             placeholder="YYYY-MM-DD 형식으로 입력해주세요."

@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { ModalBox, Dimmed, ModalContent } from './style';
 
 interface ModalProps {
@@ -15,7 +15,14 @@ const ModalContents = ({ children }: PropsWithChildren) => {
 };
 
 const Modal = (props: PropsWithChildren<ModalProps>) => {
-  const modalElement = document.getElementById('modal');
+  const [modalElement, setModalElement] = useState<Element | null>(null);
+
+  useEffect(() => {
+    if (document) {
+      setModalElement(document.getElementById('modal'));
+    }
+  }, []);
+
   if (modalElement === null) {
     return <div></div>;
   } else {

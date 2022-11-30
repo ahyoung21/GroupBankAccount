@@ -3,8 +3,10 @@ import styled from 'styled-components';
 export const ModalRegisterBox = styled.div`
   padding: 2rem;
 
-  input {
+  input,
+  select {
     display: block;
+    position: relative;
     width: 100%;
     margin: 1rem 0;
     padding: 1rem;
@@ -12,6 +14,7 @@ export const ModalRegisterBox = styled.div`
     box-sizing: border-box;
     border: 0.1rem solid rgb(221, 221, 221);
     border-radius: 0.3rem;
+    appearance: none;
 
     &::placeholder {
       color: #999;
@@ -20,8 +23,21 @@ export const ModalRegisterBox = styled.div`
 
   form {
     div {
-      font-size: 1.4rem;
-      color: red;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: 1.5rem;
+        bottom: 0.5rem;
+        width: 0.7rem;
+        height: 0.7rem;
+        margin: auto;
+        border-bottom: 0.1rem solid rgb(58, 58, 58);
+        border-right: 0.1rem solid rgb(58, 58, 58);
+        transform: rotate(45deg);
+      }
     }
   }
 
