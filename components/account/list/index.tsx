@@ -1,11 +1,12 @@
 import React, { useState, useEffect, MouseEvent } from 'react';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import { deleteData } from '../../../firebase/firestore';
 import { AccountInterface } from '../../../interfaces/user.interface';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { UserState, InitialPropsState } from '../../../state';
 
 import { AccountListBox } from './style';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import Button from '../../button/index';
 
@@ -20,6 +21,22 @@ export default function AccountList() {
   const onClickCloseModal = () => {
     setModalFlag(false);
   };
+
+  const onClickDelete = async (id: string) => {
+    const confirm = window.confirm('정말 삭제하시겠습니까?');
+
+    if (confirm) {
+      await deleteData('account', id)
+        .then(() => {
+          console.log('Entire Document has been deleted successfully.');
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   const userEmail = useRecoilValue(UserState);
   const accountInfo = useRecoilValueLoadable(InitialPropsState);
 
@@ -30,7 +47,7 @@ export default function AccountList() {
           <ul>
             {accountInfo.contents.map((account: AccountInterface, idx: number) => {
               return (
-                <li key={idx}>
+                <li key={idx} onClick={() => onClickDelete(account.id)}>
                   <dl>
                     <dt>
                       <span>{account.dateTime}</span>

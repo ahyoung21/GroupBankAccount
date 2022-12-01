@@ -6,7 +6,9 @@ export default selector({
   get: async ({ get }) => {
     try {
       const response = await getData('account').then((data: any) => {
-        return data.docs.map((item: any) => item.data());
+        return data.docs.map((item: any) => {
+          return { ...item.data(), id: item.id };
+        });
       });
       return response;
     } catch (error) {

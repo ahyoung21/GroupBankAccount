@@ -16,4 +16,5 @@ export interface AccountInterface {
   price: number;
   seq: number;
   type: string;
+  id?: string;
 }
