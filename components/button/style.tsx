@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ButtonBox = styled.button`
   position: absolute;
-  bottom: 5rem;
+  bottom: 2rem;
   right: 0;
   padding: 1.4rem;
   font-size: 1.6rem;

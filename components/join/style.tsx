@@ -15,7 +15,7 @@ export const JoinBox = styled.div`
 
   h2 {
     margin-bottom: 2rem;
-    font-size: 2rem;
+    font-size: 1.6rem;
     text-align: center;
   }
 
@@ -46,7 +46,7 @@ export const JoinBox = styled.div`
     width: 100%;
     margin-top: 2rem;
     padding: 1.5rem 0;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     text-align: center;
     background-color: #fae100;
     cursor: pointer;

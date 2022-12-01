@@ -18,6 +18,7 @@ const ModalRegister = (props: ModalProps) => {
   const dateRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
+  const [errorMsg, setErrorMsg] = useState('');
   const [status, setStatus] = useState<boolean>(false);
 
   const [inputValue, setInputValue] = useState<IRegister>({
@@ -29,6 +30,7 @@ const ModalRegister = (props: ModalProps) => {
 
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    handleCheckDate();
 
     setInputValue({
       ...inputValue,
@@ -45,6 +47,31 @@ const ModalRegister = (props: ModalProps) => {
     });
   };
 
+  const checkValidDate = (value: string): boolean => {
+    let result = true;
+    try {
+      const date = value.split('-');
+      const y = parseInt(date[0], 10),
+        m = parseInt(date[1], 10),
+        d = parseInt(date[2], 10);
+
+      const dateRegex =
+        /^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-.\/])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/;
+      result = dateRegex.test(d + '-' + m + '-' + y);
+    } catch (err) {
+      result = false;
+    }
+    return result;
+  };
+
+  const handleCheckDate = () => {
+    if (checkValidDate(inputValue.date)) {
+      setErrorMsg('');
+    } else {
+      setErrorMsg('YYYY-MM-DD 형식으로 입력해주세요.');
+    }
+  };
+
   const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
@@ -55,14 +82,29 @@ const ModalRegister = (props: ModalProps) => {
       type: inputValue.select,
     };
     setData('account', data);
+    setInputValue({
+      date: '',
+      price: 0,
+      select: '',
+      name: '',
+    });
   };
+
+  useEffect(() => {
+    if (inputValue.date && inputValue.price && inputValue.select && inputValue.name) {
+      setStatus(true);
+    } else {
+      setStatus(false);
+    }
+  }, [inputValue]);
 
   return (
     <Modal onClose={props.onClose}>
       <ModalRegisterBox>
         <form>
+          <h2>입출금 내역 입력</h2>
           <div>
-            <select name="selectBox" id="selectBox" onChange={handleSelectValue}>
+            <select name="select" id="selectBox" onChange={handleSelectValue}>
               <option value="deposit">입금</option>
               <option value="withdraw">출금</option>
             </select>
@@ -75,6 +117,7 @@ const ModalRegister = (props: ModalProps) => {
             value={inputValue.date}
             onChange={handleInputValue}
           />
+          <p>{errorMsg}</p>
           <input
             type="number"
             placeholder="금액을 입력해주세요."
@@ -91,8 +134,7 @@ const ModalRegister = (props: ModalProps) => {
             value={inputValue.name}
             onChange={handleInputValue}
           />
-
-          <button type={'button'} onClick={true ? onSubmit : undefined}>
+          <button type={'button'} onClick={status ? onSubmit : undefined}>
             등록
           </button>
         </form>
