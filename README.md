@@ -10,7 +10,8 @@ npm run dev
 ### 구현 내용
 
 NextJS + TypeScript + recoil 로 작업
-firebase 통해 멤버별 입금내역과 출금내역을 표시
+firebase 통해 회원가입, 로그인 구현
+입금내역, 출금내역 등록 및 삭제 기능 구현
 
 ### 개발 환경 및 버전
 
@@ -29,9 +30,11 @@ firebase 통해 멤버별 입금내역과 출금내역을 표시
 ```
 ├── components
 │   ├── account
+│   ├── button
 │   ├── common
 │   ├── join
-│   └── login
+│   ├── login
+│   └── modalRegister
 ├── pages
 │   ├── _app.tsx
 │   ├── _document.tsx
