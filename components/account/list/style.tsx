@@ -18,6 +18,7 @@ export const AccountListBox = styled.div`
 
       &.active {
         dl {
+          padding-right: 2rem;
           transform: translate3d(-8rem, 0, 0);
         }
       }
@@ -38,7 +39,7 @@ export const AccountListBox = styled.div`
   dl {
     display: flex;
     position: relative;
-    z-index: 10;
+    z-index: 5;
     padding: 2rem 0;
     font-weight: 400;
     font-size: 1.4rem;

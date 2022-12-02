@@ -14,7 +14,6 @@ import ModalRegister from '../../modalRegister';
 
 export default function AccountList() {
   const [modalFlag, setModalFlag] = useState(false);
-  const [flag, setFlag] = useState(false);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
   const intl = new Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' });
@@ -32,9 +31,9 @@ export default function AccountList() {
   const onMouseUp = (e: MouseEvent<HTMLElement>): void => {
     setEnd(e.pageX);
     if (start > end) {
-      setFlag(true);
+      e.currentTarget.classList.add('active');
     } else {
-      setFlag(false);
+      e.currentTarget.classList.remove('active');
     }
   };
 
@@ -70,7 +69,6 @@ export default function AccountList() {
                   onMouseDown={onMouseDown}
                   onMouseUp={onMouseUp}
                   onMouseMove={onMouseMove}
-                  className={flag ? ' active' : ''}
                 >
                   <dl>
                     <dt>
