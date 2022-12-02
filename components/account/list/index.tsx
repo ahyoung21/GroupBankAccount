@@ -14,6 +14,9 @@ import ModalRegister from '../../modalRegister';
 
 export default function AccountList() {
   const [modalFlag, setModalFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
   const intl = new Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' });
   const onClickOpenModal = () => {
     setModalFlag(true);
@@ -21,6 +24,21 @@ export default function AccountList() {
   const onClickCloseModal = () => {
     setModalFlag(false);
   };
+
+  const onMouseDown = (e: MouseEvent<HTMLElement>): void => {
+    setStart(e.pageX);
+  };
+
+  const onMouseUp = (e: MouseEvent<HTMLElement>): void => {
+    setEnd(e.pageX);
+    if (start > end) {
+      setFlag(true);
+    } else {
+      setFlag(false);
+    }
+  };
+
+  const onMouseMove = (e: MouseEvent<HTMLElement>): void => {};
 
   const onClickDelete = async (id: string) => {
     const confirm = window.confirm('정말 삭제하시겠습니까?');
@@ -47,7 +65,13 @@ export default function AccountList() {
           <ul>
             {accountInfo.contents.map((account: AccountInterface, idx: number) => {
               return (
-                <li key={idx} onClick={() => onClickDelete(account.id)}>
+                <li
+                  key={idx}
+                  onMouseDown={onMouseDown}
+                  onMouseUp={onMouseUp}
+                  onMouseMove={onMouseMove}
+                  className={flag ? ' active' : ''}
+                >
                   <dl>
                     <dt>
                       <span>{account.dateTime}</span>
@@ -60,6 +84,7 @@ export default function AccountList() {
                       </span>
                     </dd>
                   </dl>
+                  <button onClick={() => onClickDelete(account.id)}>삭제</button>
                 </li>
               );
             })}

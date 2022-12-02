@@ -9,18 +9,42 @@ export const AccountListBox = styled.div`
 
   ul {
     li {
+      position: relative;
+      overflow: hidden;
+
       & + li {
         border-top: 1px solid rgb(244, 244, 244);
+      }
+
+      &.active {
+        dl {
+          transform: translate3d(-8rem, 0, 0);
+        }
+      }
+
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 8rem;
+        font-size: 1.4rem;
+        color: #fff;
+        background-color: red;
       }
     }
   }
 
   dl {
     display: flex;
+    position: relative;
+    z-index: 10;
     padding: 2rem 0;
     font-weight: 400;
     font-size: 1.4rem;
-
+    transition-duration: 0.3s;
+    transform: translate3d(0, 0, 0);
+    background-color: #fff;
 
     strong {
       margin-left: 1.5rem;
