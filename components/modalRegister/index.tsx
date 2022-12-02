@@ -24,7 +24,7 @@ const ModalRegister = (props: ModalProps) => {
   const [inputValue, setInputValue] = useState<IRegister>({
     date: '',
     price: 0,
-    select: '',
+    select: 'deposit',
     name: '',
   });
 
@@ -85,9 +85,10 @@ const ModalRegister = (props: ModalProps) => {
     setInputValue({
       date: '',
       price: 0,
-      select: '',
+      select: 'deposit',
       name: '',
     });
+    props.onClose();
   };
 
   useEffect(() => {
