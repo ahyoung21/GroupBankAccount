@@ -92,7 +92,11 @@ export default function AccountList() {
         </AccountListBox>
       );
     case 'loading':
-      return <Skeleton count={5} height={'5.4rem'} />;
+      return (
+        <div>
+          <Skeleton count={5} height={'1.8rem'} />
+        </div>
+      );
     case 'hasError':
       return <>error</>;
   }

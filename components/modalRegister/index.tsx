@@ -89,6 +89,7 @@ const ModalRegister = (props: ModalProps) => {
       name: '',
     });
     props.onClose();
+    window.location.reload();
   };
 
   useEffect(() => {

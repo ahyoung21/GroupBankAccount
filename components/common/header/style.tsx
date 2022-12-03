@@ -28,7 +28,7 @@ export const HeaderBox = styled.header`
     padding: 0 2rem;
 
     .react-loading-skeleton {
-      margin-top: 1rem;
+      margin-top: 2.2rem;
     }
   }
 `;
