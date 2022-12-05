@@ -1,5 +1,5 @@
 import React, { useState, useEffect, MouseEvent } from 'react';
-import { deleteData } from '../../../firebase/firestore';
+import { deleteData, updateData } from '../../../firebase/firestore';
 import { AccountInterface } from '../../../interfaces/user.interface';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { UserState, InitialPropsState } from '../../../state';
@@ -52,6 +52,16 @@ export default function AccountList() {
           console.log(error);
         });
     }
+  };
+
+  const onClickUpdate = async (id: string) => {
+    const data = {
+      dateTime: '2022-11-22',
+      price: 1010,
+      seq: 'ahyoung',
+      type: 'widthdraw',
+    };
+    await updateData('account', id, data);
   };
 
   const userEmail = useRecoilValue(UserState);
