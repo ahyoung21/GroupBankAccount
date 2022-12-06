@@ -1,5 +1,5 @@
-import React, { useState, useEffect, MouseEvent } from 'react';
-import { deleteData, updateData } from '../../../firebase/firestore';
+import React, { useState, MouseEvent } from 'react';
+import { deleteData } from '../../../firebase/firestore';
 import { AccountInterface } from '../../../interfaces/user.interface';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
 import { UserState, InitialPropsState } from '../../../state';
@@ -17,6 +17,7 @@ export default function AccountList() {
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
   const intl = new Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' });
+  const [accountData, setAccountData] = useState();
   const onClickOpenModal = () => {
     setModalFlag(true);
   };
@@ -37,8 +38,6 @@ export default function AccountList() {
     }
   };
 
-  const onMouseMove = (e: MouseEvent<HTMLElement>): void => {};
-
   const onClickDelete = async (id: string) => {
     const confirm = window.confirm('정말 삭제하시겠습니까?');
 
@@ -55,13 +54,9 @@ export default function AccountList() {
   };
 
   const onClickUpdate = async (id: string) => {
-    const data = {
-      dateTime: '2022-11-22',
-      price: 1010,
-      seq: 'ahyoung',
-      type: 'widthdraw',
-    };
-    await updateData('account', id, data);
+    onClickOpenModal();
+
+    setAccountData(accountInfo.contents.filter((item: any) => item.id === id));
   };
 
   const userEmail = useRecoilValue(UserState);
@@ -74,12 +69,7 @@ export default function AccountList() {
           <ul>
             {accountInfo.contents.map((account: AccountInterface, idx: number) => {
               return (
-                <li
-                  key={idx}
-                  onMouseDown={onMouseDown}
-                  onMouseUp={onMouseUp}
-                  onMouseMove={onMouseMove}
-                >
+                <li key={idx} onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
                   <dl>
                     <dt>
                       <span>{account.dateTime}</span>
@@ -92,13 +82,16 @@ export default function AccountList() {
                       </span>
                     </dd>
                   </dl>
-                  <button onClick={() => onClickDelete(account.id)}>삭제</button>
+                  <div>
+                    <button onClick={() => onClickUpdate(account.id)}>수정</button>
+                    <button onClick={() => onClickDelete(account.id)}>삭제</button>
+                  </div>
                 </li>
               );
             })}
           </ul>
           {userEmail && <Button onClickOpenModal={onClickOpenModal} />}
-          {modalFlag && <ModalRegister onClose={onClickCloseModal} />}
+          {modalFlag && <ModalRegister onClose={onClickCloseModal} accountData={accountData} />}
         </AccountListBox>
       );
     case 'loading':

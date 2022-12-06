@@ -1,15 +1,24 @@
 import React, { useState, useEffect, useRef, ChangeEvent, MouseEvent } from 'react';
-import { setData } from '../../firebase/firestore';
+import { setData, updateData } from '../../firebase/firestore';
 import Modal from '../common/modal';
 import { ModalRegisterBox } from './style';
 
 interface ModalProps {
   onClose: () => void;
+  accountData: [
+    {
+      dateTime: string;
+      id: string;
+      price: string;
+      seq: string;
+      type: string;
+    }
+  ];
 }
 
 interface IRegister {
   date: string;
-  price: number;
+  price: string;
   select: string;
   name: string;
 }
@@ -23,7 +32,7 @@ const ModalRegister = (props: ModalProps) => {
 
   const [inputValue, setInputValue] = useState<IRegister>({
     date: '',
-    price: 0,
+    price: '',
     select: 'deposit',
     name: '',
   });
@@ -77,19 +86,26 @@ const ModalRegister = (props: ModalProps) => {
 
     const data = {
       dateTime: inputValue.date,
-      price: inputValue.price,
+      price: Number(inputValue.price),
       seq: inputValue.name,
       type: inputValue.select,
     };
-    setData('account', data);
-    setInputValue({
-      date: '',
-      price: 0,
-      select: 'deposit',
-      name: '',
-    });
-    props.onClose();
-    window.location.reload();
+    if (props.accountData) {
+      updateData('account', props.accountData[0].id, data).then(() => {
+        window.location.reload();
+      });
+    } else {
+      setData('account', data).then(() => {
+        setInputValue({
+          date: '',
+          price: '',
+          select: 'deposit',
+          name: '',
+        });
+        props.onClose();
+        window.location.reload();
+      });
+    }
   };
 
   useEffect(() => {
@@ -99,6 +115,17 @@ const ModalRegister = (props: ModalProps) => {
       setStatus(false);
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    if (props.accountData) {
+      setInputValue({
+        date: props.accountData[0].dateTime,
+        price: props.accountData[0].price,
+        select: props.accountData[0].type,
+        name: props.accountData[0].seq,
+      });
+    }
+  }, [props]);
 
   return (
     <Modal onClose={props.onClose}>

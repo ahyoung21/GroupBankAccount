@@ -19,19 +19,8 @@ export const AccountListBox = styled.div`
       &.active {
         dl {
           padding-right: 2rem;
-          transform: translate3d(-8rem, 0, 0);
+          transform: translate3d(-14rem, 0, 0);
         }
-      }
-
-      button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 8rem;
-        font-size: 1.4rem;
-        color: #fff;
-        background-color: red;
       }
     }
   }
@@ -53,6 +42,27 @@ export const AccountListBox = styled.div`
 
     dd {
       margin-left: auto;
+    }
+
+    & + div {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 14rem;
+
+      button {
+        width: 7rem;
+        height: 100%;
+        font-size: 1.4rem;
+        color: #333;
+        background-color: #eeeeee;
+
+        & + button {
+          color: #fff;
+          background-color: #ff0038;
+        }
+      }
     }
   }
 `;
