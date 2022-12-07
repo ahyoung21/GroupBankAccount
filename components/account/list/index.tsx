@@ -22,7 +22,7 @@ export default function AccountList() {
     setModalFlag(true);
   };
   const onClickCloseModal = () => {
-    setAccountData();
+    setAccountData(null);
     setModalFlag(false);
   };
 
