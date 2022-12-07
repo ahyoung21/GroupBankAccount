@@ -164,7 +164,7 @@ const ModalRegister = (props: ModalProps) => {
             onChange={handleInputValue}
           />
           <button type={'button'} onClick={status ? onSubmit : undefined}>
-            등록
+            {props.accountData ? '수정' : '등록'}
           </button>
         </form>
       </ModalRegisterBox>
